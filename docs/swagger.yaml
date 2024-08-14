@@ -1,0 +1,1090 @@
+definitions:
+  health_sync.Filter:
+    properties:
+      limit:
+        type: integer
+      offset:
+        type: integer
+    type: object
+  health_sync.GeneticDataCreate:
+    properties:
+      analysis_date:
+        type: string
+      data_type:
+        type: string
+      data_value:
+        type: string
+      doctor_id:
+        type: string
+      user_id:
+        type: string
+    type: object
+  health_sync.GeneticDataRes:
+    properties:
+      analysis_date:
+        type: string
+      data_type:
+        type: string
+      data_value:
+        type: string
+      id:
+        type: string
+      user_id:
+        type: string
+    type: object
+  health_sync.GeneticDataUpdate:
+    properties:
+      analysis_date:
+        type: string
+      data_type:
+        type: string
+      data_value:
+        type: string
+      doctor_id:
+        type: string
+      id:
+        type: string
+    type: object
+  health_sync.GetAllGeneticDateRes:
+    properties:
+      GeneticDatas:
+        items:
+          $ref: '#/definitions/health_sync.GeneticDataRes'
+        type: array
+      count:
+        type: integer
+    type: object
+  health_sync.GetAllLifestyleRes:
+    properties:
+      count:
+        type: integer
+      lifestyles:
+        items:
+          $ref: '#/definitions/health_sync.LifestyleRes'
+        type: array
+    type: object
+  health_sync.GetAllMedicalRecordsRes:
+    properties:
+      count:
+        type: integer
+      medical_records:
+        items:
+          $ref: '#/definitions/health_sync.MedicalRecordRes'
+        type: array
+    type: object
+  health_sync.GetAllRecommendationReq:
+    properties:
+      filter:
+        $ref: '#/definitions/health_sync.Filter'
+      priority:
+        type: integer
+      recommendated_by:
+        type: string
+      user_id:
+        type: string
+    type: object
+  health_sync.GetAllWearableDataRes:
+    properties:
+      count:
+        type: integer
+      wearable_data:
+        items:
+          $ref: '#/definitions/health_sync.WearableDataRes'
+        type: array
+    type: object
+  health_sync.LifestyleCreate:
+    properties:
+      blood_pressure:
+        type: string
+      data_type:
+        type: string
+      data_value:
+        type: string
+      heart_rate:
+        type: integer
+      height:
+        type: number
+      recorded_date:
+        type: string
+      sleep_duration:
+        type: number
+      stress_level:
+        type: integer
+      temperature:
+        type: number
+      user_id:
+        type: string
+      weight:
+        type: number
+    type: object
+  health_sync.LifestyleRes:
+    properties:
+      blood_pressure:
+        type: string
+      data_type:
+        type: string
+      data_value:
+        type: string
+      heart_rate:
+        type: integer
+      height:
+        type: number
+      id:
+        type: string
+      recorded_date:
+        type: string
+      sleep_duration:
+        type: number
+      stress_level:
+        type: integer
+      temperature:
+        type: number
+      user_id:
+        type: string
+      weight:
+        type: number
+    type: object
+  health_sync.LifestyleUpdateBody:
+    properties:
+      blood_pressure:
+        type: string
+      data_type:
+        type: string
+      data_value:
+        type: string
+      heart_rate:
+        type: integer
+      height:
+        type: number
+      sleep_duration:
+        type: number
+      stress_level:
+        type: integer
+      temperature:
+        type: number
+      weight:
+        type: number
+    type: object
+  health_sync.MedicalRecordCreate:
+    properties:
+      attachments:
+        type: string
+      description:
+        type: string
+      doctor_id:
+        type: string
+      record_date:
+        type: string
+      record_type:
+        type: string
+      user_id:
+        type: string
+    type: object
+  health_sync.MedicalRecordRes:
+    properties:
+      attachments:
+        type: string
+      description:
+        type: string
+      doctor_id:
+        type: string
+      id:
+        type: string
+      record_date:
+        type: string
+      record_type:
+        type: string
+      user_id:
+        type: string
+    type: object
+  health_sync.MedicalRecordUpdateBody:
+    properties:
+      attachments:
+        type: string
+      description:
+        type: string
+      record_date:
+        type: string
+      record_type:
+        type: string
+    type: object
+  health_sync.RecommendationCreate:
+    properties:
+      description:
+        type: string
+      priority:
+        type: integer
+      recommendated_by:
+        type: string
+      recommendation_type:
+        type: string
+      user_id:
+        type: string
+    type: object
+  health_sync.RecommendationRes:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      priority:
+        type: integer
+      recommendated_by:
+        type: string
+      recommendation_type:
+        type: string
+      user_id:
+        type: string
+    type: object
+  health_sync.RecommendationUpdateBody:
+    properties:
+      description:
+        type: string
+      priority:
+        type: integer
+      recommendation_type:
+        type: string
+    type: object
+  health_sync.WearableDataCreate:
+    properties:
+      calories_burned:
+        type: number
+      device_type:
+        type: string
+      distance_traveled:
+        type: number
+      heart_rate:
+        type: integer
+      recorded_timestamp:
+        type: string
+      sleep_duration:
+        type: number
+      step_count:
+        type: integer
+      user_id:
+        type: string
+      workout_type:
+        type: string
+    type: object
+  health_sync.WearableDataRes:
+    properties:
+      calories_burned:
+        type: number
+      device_type:
+        type: string
+      distance_traveled:
+        type: number
+      heart_rate:
+        type: integer
+      id:
+        type: string
+      recorded_timestamp:
+        type: string
+      sleep_duration:
+        type: number
+      step_count:
+        type: integer
+      user_id:
+        type: string
+      workout_type:
+        type: string
+    type: object
+  health_sync.WearableDataUpdateBody:
+    properties:
+      calories_burned:
+        type: number
+      device_type:
+        type: string
+      distance_traveled:
+        type: number
+      heart_rate:
+        type: integer
+      recorded_timestamp:
+        type: string
+      sleep_duration:
+        type: number
+      step_count:
+        type: integer
+      workout_type:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a sample server celler server.
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /genetic-data:
+    get:
+      consumes:
+      - application/json
+      description: List Genetic Data records
+      parameters:
+      - description: User ID
+        in: query
+        name: user_id
+        type: string
+      - description: Doctor ID
+        in: query
+        name: doctor_id
+        type: string
+      - description: Analysis Date
+        in: query
+        name: analysis_date
+        type: string
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.GetAllGeneticDateRes'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: List Genetic Data records
+      tags:
+      - GeneticData
+    post:
+      consumes:
+      - application/json
+      description: Create a new Genetic Data record
+      parameters:
+      - description: body for GeneticDataCreate
+        in: body
+        name: geneticdata
+        required: true
+        schema:
+          $ref: '#/definitions/health_sync.GeneticDataCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Record created successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create a new Genetic Data record
+      tags:
+      - GeneticData
+  /genetic-data/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Genetic Data
+      parameters:
+      - description: Genetic Data ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Record deleted successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete Genetic Data
+      tags:
+      - GeneticData
+    get:
+      consumes:
+      - application/json
+      description: Get Genetic Data by ID
+      parameters:
+      - description: Genetic Data ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.GeneticDataRes'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get Genetic Data by ID
+      tags:
+      - GeneticData
+    put:
+      consumes:
+      - application/json
+      description: Update Genetic Data
+      parameters:
+      - description: Genetic Data ID
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: body for GeneticDataUpdate
+        in: body
+        name: geneticdata
+        required: true
+        schema:
+          $ref: '#/definitions/health_sync.GeneticDataUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Record updated successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Update Genetic Data
+      tags:
+      - GeneticData
+  /lifestyle:
+    get:
+      consumes:
+      - application/json
+      description: List Lifestyle Records
+      parameters:
+      - description: User ID
+        in: query
+        name: user_id
+        type: string
+      - description: Data Type
+        in: query
+        name: data_type
+        type: string
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.GetAllLifestyleRes'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: List Lifestyle Records
+      tags:
+      - Lifestyle
+    post:
+      consumes:
+      - application/json
+      description: Create a new Lifestyle Record
+      parameters:
+      - description: body for LifestyleCreate
+        in: body
+        name: lifestyle
+        required: true
+        schema:
+          $ref: '#/definitions/health_sync.LifestyleCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Record created successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create a new Lifestyle Record
+      tags:
+      - Lifestyle
+  /lifestyle/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Lifestyle Record
+      parameters:
+      - description: Lifestyle Record ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Record deleted successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete Lifestyle Record
+      tags:
+      - Lifestyle
+    get:
+      consumes:
+      - application/json
+      description: Get Lifestyle Record
+      parameters:
+      - description: Lifestyle Record ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.LifestyleRes'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get Lifestyle Record
+      tags:
+      - Lifestyle
+    put:
+      consumes:
+      - application/json
+      description: Update Lifestyle Record
+      parameters:
+      - description: Lifestyle Record ID
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: body for LifestyleUpdate
+        in: body
+        name: lifestyle
+        required: true
+        schema:
+          $ref: '#/definitions/health_sync.LifestyleUpdateBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Record updated successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Update Lifestyle Record
+      tags:
+      - Lifestyle
+  /medical-records:
+    get:
+      consumes:
+      - application/json
+      description: List Medical Records
+      parameters:
+      - description: User ID
+        in: query
+        name: user_id
+        type: string
+      - description: Record Type
+        in: query
+        name: record_type
+        type: string
+      - description: Record Date
+        in: query
+        name: record_date
+        type: string
+      - description: Doctor ID
+        in: query
+        name: doctor_id
+        type: string
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.GetAllMedicalRecordsRes'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: List Medical Records
+      tags:
+      - MedicalRecords
+    post:
+      consumes:
+      - application/json
+      description: Create a new Medical Record
+      parameters:
+      - description: body for MedicalRecordCreate
+        in: body
+        name: medicalrecord
+        required: true
+        schema:
+          $ref: '#/definitions/health_sync.MedicalRecordCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Record created successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create a new Medical Record
+      tags:
+      - MedicalRecords
+  /medical-records/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Medical Record
+      parameters:
+      - description: Medical Record ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Record deleted successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete Medical Record
+      tags:
+      - MedicalRecords
+    get:
+      consumes:
+      - application/json
+      description: Get Medical Record with the given details
+      parameters:
+      - description: Medical Record ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.MedicalRecordRes'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get Medical Record with the given details
+      tags:
+      - MedicalRecords
+    put:
+      consumes:
+      - application/json
+      description: Update Medical Record
+      parameters:
+      - description: Medical Record ID
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: body for Medical Record Update Body
+        in: body
+        name: Athlete
+        required: true
+        schema:
+          $ref: '#/definitions/health_sync.MedicalRecordUpdateBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Record updated successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Update Medical Record
+      tags:
+      - MedicalRecords
+  /recommendation:
+    get:
+      consumes:
+      - application/json
+      description: List Recommendations
+      parameters:
+      - description: User ID
+        in: query
+        name: user_id
+        type: string
+      - description: Recommendated By
+        in: query
+        name: recommendated_by
+        type: string
+      - description: Priority
+        in: query
+        name: priority
+        type: string
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.GetAllRecommendationReq'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: List Recommendations
+      tags:
+      - Recommendation
+    post:
+      consumes:
+      - application/json
+      description: Create Recommendation
+      parameters:
+      - description: body for RecommendationCreate
+        in: body
+        name: recommendation
+        required: true
+        schema:
+          $ref: '#/definitions/health_sync.RecommendationCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Recommendation created successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create Recommendation
+      tags:
+      - Recommendation
+  /recommendation/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Recommendation
+      parameters:
+      - description: Recommendation ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Recommendation deleted successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete Recommendation
+      tags:
+      - Recommendation
+    get:
+      consumes:
+      - application/json
+      description: Get Recommendation
+      parameters:
+      - description: Recommendation ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.RecommendationRes'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get Recommendation
+      tags:
+      - Recommendation
+    put:
+      consumes:
+      - application/json
+      description: Update Recommendation
+      parameters:
+      - description: Recommendation ID
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: body for RecommendationUpdate
+        in: body
+        name: recommendation
+        required: true
+        schema:
+          $ref: '#/definitions/health_sync.RecommendationUpdateBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Recommendation updated successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Update Recommendation
+      tags:
+      - Recommendation
+  /wearable-data:
+    get:
+      consumes:
+      - application/json
+      description: List Wearable Data Records
+      parameters:
+      - description: User ID
+        in: query
+        name: user_id
+        type: string
+      - description: Recorded Timestamp
+        in: query
+        name: recorded_timestamp
+        type: string
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.GetAllWearableDataRes'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: List Wearable Data Records
+      tags:
+      - WearableData
+    post:
+      consumes:
+      - application/json
+      description: Create Wearable Data
+      parameters:
+      - description: body for WearableDataCreate
+        in: body
+        name: wearabledata
+        required: true
+        schema:
+          $ref: '#/definitions/health_sync.WearableDataCreate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Wearable data created successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create Wearable Data
+      tags:
+      - WearableData
+  /wearable-data/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete Wearable Data
+      parameters:
+      - description: Wearable Data ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Wearable data deleted successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Delete Wearable Data
+      tags:
+      - WearableData
+    get:
+      consumes:
+      - application/json
+      description: Get Wearable Data
+      parameters:
+      - description: Wearable Data ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.WearableDataRes'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get Wearable Data
+      tags:
+      - WearableData
+    put:
+      consumes:
+      - application/json
+      description: Update Wearable Data
+      parameters:
+      - description: Wearable Data ID
+        in: query
+        name: id
+        required: true
+        type: string
+      - description: body for WearableDataUpdate
+        in: body
+        name: wearabledata
+        required: true
+        schema:
+          $ref: '#/definitions/health_sync.WearableDataUpdateBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Wearable data updated successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Update Wearable Data
+      tags:
+      - WearableData
+securityDefinitions:
+  ApiKeyAuth:
+    description: Description for what is this security definition being used
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

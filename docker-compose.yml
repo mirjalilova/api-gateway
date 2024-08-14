@@ -1,0 +1,13 @@
+
+services:
+  api-gateway:
+    container_name: gateway
+    build: ./
+    ports:
+      - "50072:50072"
+    networks:
+      - global-network
+# Docker Networks
+networks:
+  global-network:
+    external: true 
