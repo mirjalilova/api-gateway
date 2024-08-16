@@ -1,12 +1,15 @@
 package api
 
 import (
+	"github.com/casbin/casbin/v2"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/mirjalilova/api-gateway/api/handlers"
+	"github.com/mirjalilova/api-gateway/api/middlerware"
 	_ "github.com/mirjalilova/api-gateway/docs"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"golang.org/x/exp/slog"
 )
 
 // @title           Swagger Example API
@@ -29,9 +32,15 @@ func Engine(handler *handlers.Handlers) *gin.Engine {
 		AllowCredentials: true,
 	}))
 
+	enforcer, err := casbin.NewEnforcer("gateway/casbin/model.conf", "gateway/casbin/policy.csv")
+	if err != nil {
+		slog.Error("Error while initializing Casbin: ", err)
+	}
+	// router.Use(middlerware.NewAuth(enforcer))
+
 	router.GET("api/v1/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, ginSwagger.URL("swagger/doc.json")))
 
-	med := router.Group("/medical-records")
+	med := router.Group("/medical-records").Use(middlerware.NewAuth(enforcer))
 	{
 		med.GET("", handler.ListMedicalRecords)
 		med.GET("/:id", handler.GetMedicalRecord)
@@ -85,10 +94,10 @@ func Engine(handler *handlers.Handlers) *gin.Engine {
 
 	notification := router.Group("/notifications")
 	{
-        notification.POST("", handler.CreateNotification)
+		notification.POST("", handler.CreateNotification)
 		notification.GET("/:id", handler.GetNotification)
 		notification.GET("/", handler.ListNotifications)
-    }
+	}
 
 	return router
 }

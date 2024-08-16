@@ -11,7 +11,7 @@ import (
 	"golang.org/x/exp/slog"
 )
 
-var cacheExpiration = 15 * time.Minute
+var cacheExpiration = 1 * time.Microsecond
 
 // Cache the data in Redis
 func cacheData(ctx context.Context, client *redis.Client, key string, data interface{}) error {
@@ -78,7 +78,7 @@ func (h *Handlers) HealthMonitoringWeeklyReport(c *gin.Context) {
 // @Produce json
 // @Security BearerAuth
 // @Param user_id query string true "User ID"
-// @Success 200 {object} pb.LifestyleRes
+// @Success 200 {object} pb.WearableDataRes
 // @Failure 400 {object} string "error": "error message"
 // @Router /health-monitoring/real-time/{id} [get]
 func (h *Handlers) HealthMonitoringRealTime(c *gin.Context) {
@@ -86,7 +86,7 @@ func (h *Handlers) HealthMonitoringRealTime(c *gin.Context) {
 	cacheKey := "realtime:" + id
 	ctx := context.Background()
 
-	var res pb.LifestyleRes
+	var res pb.WearableDataRes
 
 	err := getCachedData(ctx, h.Redis, cacheKey, &res)
 	if err == nil {
@@ -102,16 +102,16 @@ func (h *Handlers) HealthMonitoringRealTime(c *gin.Context) {
 		return
 	}
 
-	res = pb.LifestyleRes{
-		HeartRate:    resp.HeartRate,
-		SleepDuration: resp.SleepDuration,
-		Temperature:  resp.Temperature,
-	}
+	// res = pb.LifestyleRes{
+	// 	HeartRate:    resp.HeartRate,
+	// 	SleepDuration: resp.SleepDuration,
+	// 	Temperature:  resp.Temperature,
+	// }
 
-	cacheData(ctx, h.Redis, cacheKey, res)
+	cacheData(ctx, h.Redis, cacheKey, resp)
 
 	slog.Info("Real-time data retrieved and cached successfully")
-	c.JSON(200, res)
+	c.JSON(200, resp)
 }
 
 

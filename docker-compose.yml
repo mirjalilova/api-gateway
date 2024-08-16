@@ -1,13 +1,12 @@
-
 services:
   api-gateway:
     container_name: gateway
     build: ./
     ports:
-      - "50072:50072"
+      - "8888:8888"
     networks:
-      - global-network
+      - medmon
 # Docker Networks
 networks:
-  global-network:
+  medmon:
     external: true 

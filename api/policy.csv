@@ -1,44 +1,39 @@
-p, admin, /postdata, POST
+p, unauthorized, /,                      GET
 
+p, doctor, /medical-records,             GET
+p, doctor, //medical-records/:id,        GET
+p, doctor, //medical-records,            POST
+p, doctor, //medical-records/:id,        PUT
+p, doctor, //medical-records/:id,        DELETE
 
-# Competition Service
+p, doctor, /genetic-data,                GET
+p, doctor, /genetic-data/:id,            GET
+p, doctor, /genetic-data,                POST
+p, doctor, /genetic-data/:id,            PUT
+p, doctor, /genetic-data/:id,            DELETE
 
-//medal
-p, admin, /api/medal,                   POST
-p, admin, /api/medal,                   PUT
-p, admin, /api/medal/:id,               DELETE
-p, user,  /api/medal/:id,               GET
-p, user,  /api/medal/ranking,           GET
-p, user,  /api/medal/ranking/byCountry, GET
+p, user, /lifestyle,                     GET
+p, user, /lifestyle/:id,                 GET
+p, user, /lifestyle,                     POST
+p, user,  /lifestyle/:id,                PUT
+p, user,  /lifestyle/:id,                DELETE
 
-//country
-p, user,  /api/country/:name,            GET
+p, user,  /wearable-data,                GET
+p, user,  /wearable-data/:id,            GEt
+p, user,  /wearable-data,                POST
+p, user,  /wearable-data/:id,            PUT
+p, user,  /wearable-data/:id,            DELETE
 
+p, user,   /recommendation,              GET
+p, doctor, /recommendation,              POST
+p, admin,  /recommendation/:id,          GET
+p, doctor, /recommendation/:id,          PUT
+p, user,   /recommendation/:id,          DELETE
 
-//athlete
-p, admin, /api/athlete,                   POST
-p, admin, /api/athlete,                   PUT
-p, admin, /api/athlete/:id,               DELETE
-p, user,  /api/athlete/:id,               GET
-p, user,  /api/athlete,           GET
+p, admin, /health-monitoring/:id,        GET
+p, admin, /health-monitoring/:id,        GET
+p, admin, /health-monitoring/:id,        GET
 
-//event
-p, admin, /api/event,                   POST
-p, admin, /api/event,                   PUT
-p, admin, /api/event/:id,               DELETE
-p, user,  /api/event/:id,               GET
-p, user,  /api/event,           GET
-
-//eventpart
-p, admin, /api/eventparticipant,                   POST
-p, admin, /api/eventparticipant,                   PUT
-p, admin, /api/eventparticipant/:id,               DELETE
-p, user,  /api/eventparticipant/:id,               GET
-p, user,  /api/eventparticipant,           GET
-
-//team
-p, admin, /api/team,                   POST
-p, admin, /api/team,                   PUT
-p, admin, /api/team/:id,               DELETE
-p, user,  /api/team/:id,               GET
-p, user,  /api/team,           GET
+p, user,  /notifications,                GET
+p, user,  /notifications/:id,            GET
+p, user,  /notifications,                GET

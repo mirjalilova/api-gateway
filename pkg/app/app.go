@@ -13,7 +13,7 @@ import (
 func Run(cfg *config.Config) {
 
 	// Kafka
-	brokers := []string{"localhost:29092"}
+	brokers := []string{"kafka:29092"}
 	pr, err := prd.NewKafkaProducer(brokers)
 	if err != nil {
 		slog.Error("Failed to create Kafka producer:", err)
@@ -22,7 +22,7 @@ func Run(cfg *config.Config) {
 
 	// Redis
 	rd := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379", 
+		Addr:     "redis:6379", 
 		Password: "",               
 		DB:       0,                
 	})

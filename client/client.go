@@ -22,7 +22,7 @@ type Clients struct {
 func NewClients() *Clients {
 	cnf := config.Load()
 
-	conn, err := grpc.NewClient("localhost"+cnf.MED_TRACK, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.NewClient("medtrack"+cnf.MED_TRACK, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		slog.Error("Failed to connect to live streaming service: %v", "err", err)
 	}

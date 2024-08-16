@@ -19,6 +19,6 @@ COPY --from=builder /app/gateway .
 COPY --from=builder /app//api/model.conf ./api/
 COPY --from=builder /app/api/policy.csv ./api/
 
-EXPOSE 50072
+EXPOSE 8888
 
 CMD ["./gateway"]

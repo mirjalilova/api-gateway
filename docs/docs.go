@@ -333,7 +333,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/health_sync.LifestyleRes"
+                            "$ref": "#/definitions/health_sync.WearableDataRes"
                         }
                     },
                     "400": {
