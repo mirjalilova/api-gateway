@@ -72,6 +72,15 @@ definitions:
           $ref: '#/definitions/health_sync.MedicalRecordRes'
         type: array
     type: object
+  health_sync.GetAllNotificationRes:
+    properties:
+      Notifications:
+        items:
+          $ref: '#/definitions/health_sync.Notification'
+        type: array
+      count:
+        type: integer
+    type: object
   health_sync.GetAllRecommendationReq:
     properties:
       filter:
@@ -108,7 +117,7 @@ definitions:
         type: string
       sleep_duration:
         type: number
-      stress_level:
+      step_count:
         type: integer
       temperature:
         type: number
@@ -135,6 +144,8 @@ definitions:
         type: string
       sleep_duration:
         type: number
+      step_count:
+        type: integer
       stress_level:
         type: integer
       temperature:
@@ -208,6 +219,17 @@ definitions:
       record_type:
         type: string
     type: object
+  health_sync.Notification:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: string
+      message:
+        type: string
+      receiver:
+        type: string
+    type: object
   health_sync.RecommendationCreate:
     properties:
       description:
@@ -261,6 +283,8 @@ definitions:
         type: number
       step_count:
         type: integer
+      temperature:
+        type: number
       user_id:
         type: string
       workout_type:
@@ -284,6 +308,8 @@ definitions:
         type: number
       step_count:
         type: integer
+      temperature:
+        type: number
       user_id:
         type: string
       workout_type:
@@ -307,6 +333,27 @@ definitions:
         type: integer
       workout_type:
         type: string
+    type: object
+  health_sync.WeeklySummary:
+    properties:
+      heart_rate:
+        type: integer
+      heart_rates:
+        items:
+          type: integer
+        type: array
+      sleep_duration:
+        type: number
+      sleep_durations:
+        items:
+          type: number
+        type: array
+      temperature:
+        type: number
+      temperatures:
+        items:
+          type: number
+        type: array
     type: object
 info:
   contact: {}
@@ -469,6 +516,87 @@ paths:
       summary: Update Genetic Data
       tags:
       - GeneticData
+  /health-monitoring/daily-summary/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Health Monitoring Daily Report
+      parameters:
+      - description: User ID
+        in: query
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.LifestyleRes'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Health Monitoring Daily Report
+      tags:
+      - Health Monitoring
+  /health-monitoring/real-time/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Health Monitoring Real Time Report
+      parameters:
+      - description: User ID
+        in: query
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.LifestyleRes'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Health Monitoring Real Time Report
+      tags:
+      - Health Monitoring
+  /health-monitoring/weekly-summary/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Health Monitoring Weekly Report
+      parameters:
+      - description: User ID
+        in: query
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.WeeklySummary'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Health Monitoring Weekly Report
+      tags:
+      - Health Monitoring
   /lifestyle:
     get:
       consumes:
@@ -777,6 +905,94 @@ paths:
       summary: Update Medical Record
       tags:
       - MedicalRecords
+  /notifications:
+    get:
+      consumes:
+      - application/json
+      description: List Notifications
+      parameters:
+      - description: Receiver ID
+        in: query
+        name: receiver
+        type: string
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.GetAllNotificationRes'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: List Notifications
+      tags:
+      - Notifications
+    post:
+      consumes:
+      - application/json
+      description: Create a new Notification
+      parameters:
+      - description: body for Notification
+        in: body
+        name: notification
+        required: true
+        schema:
+          $ref: '#/definitions/health_sync.Notification'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Notification created successfully
+          schema:
+            type: string
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Create a new Notification
+      tags:
+      - Notifications
+  /notifications/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get Notification by ID
+      parameters:
+      - description: Notification ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/health_sync.Notification'
+        "400":
+          description: 'error": "error message'
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Get Notification by ID
+      tags:
+      - Notifications
   /recommendation:
     get:
       consumes:

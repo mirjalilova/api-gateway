@@ -19,11 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	WearableDataService_Create_FullMethodName = "/health_sync.WearableDataService/Create"
-	WearableDataService_Update_FullMethodName = "/health_sync.WearableDataService/Update"
-	WearableDataService_Delete_FullMethodName = "/health_sync.WearableDataService/Delete"
-	WearableDataService_Get_FullMethodName    = "/health_sync.WearableDataService/Get"
-	WearableDataService_List_FullMethodName   = "/health_sync.WearableDataService/List"
+	WearableDataService_Create_FullMethodName                    = "/health_sync.WearableDataService/Create"
+	WearableDataService_Update_FullMethodName                    = "/health_sync.WearableDataService/Update"
+	WearableDataService_Delete_FullMethodName                    = "/health_sync.WearableDataService/Delete"
+	WearableDataService_Get_FullMethodName                       = "/health_sync.WearableDataService/Get"
+	WearableDataService_List_FullMethodName                      = "/health_sync.WearableDataService/List"
+	WearableDataService_GetRealTimeMonitoringData_FullMethodName = "/health_sync.WearableDataService/GetRealTimeMonitoringData"
 )
 
 // WearableDataServiceClient is the client API for WearableDataService service.
@@ -35,6 +36,7 @@ type WearableDataServiceClient interface {
 	Delete(ctx context.Context, in *GetById, opts ...grpc.CallOption) (*Void, error)
 	Get(ctx context.Context, in *GetById, opts ...grpc.CallOption) (*WearableDataRes, error)
 	List(ctx context.Context, in *GetAllWearableDataReq, opts ...grpc.CallOption) (*GetAllWearableDataRes, error)
+	GetRealTimeMonitoringData(ctx context.Context, in *GetById, opts ...grpc.CallOption) (*WearableDataRes, error)
 }
 
 type wearableDataServiceClient struct {
@@ -95,6 +97,16 @@ func (c *wearableDataServiceClient) List(ctx context.Context, in *GetAllWearable
 	return out, nil
 }
 
+func (c *wearableDataServiceClient) GetRealTimeMonitoringData(ctx context.Context, in *GetById, opts ...grpc.CallOption) (*WearableDataRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(WearableDataRes)
+	err := c.cc.Invoke(ctx, WearableDataService_GetRealTimeMonitoringData_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // WearableDataServiceServer is the server API for WearableDataService service.
 // All implementations must embed UnimplementedWearableDataServiceServer
 // for forward compatibility
@@ -104,6 +116,7 @@ type WearableDataServiceServer interface {
 	Delete(context.Context, *GetById) (*Void, error)
 	Get(context.Context, *GetById) (*WearableDataRes, error)
 	List(context.Context, *GetAllWearableDataReq) (*GetAllWearableDataRes, error)
+	GetRealTimeMonitoringData(context.Context, *GetById) (*WearableDataRes, error)
 	mustEmbedUnimplementedWearableDataServiceServer()
 }
 
@@ -125,6 +138,9 @@ func (UnimplementedWearableDataServiceServer) Get(context.Context, *GetById) (*W
 }
 func (UnimplementedWearableDataServiceServer) List(context.Context, *GetAllWearableDataReq) (*GetAllWearableDataRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
+}
+func (UnimplementedWearableDataServiceServer) GetRealTimeMonitoringData(context.Context, *GetById) (*WearableDataRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRealTimeMonitoringData not implemented")
 }
 func (UnimplementedWearableDataServiceServer) mustEmbedUnimplementedWearableDataServiceServer() {}
 
@@ -229,6 +245,24 @@ func _WearableDataService_List_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _WearableDataService_GetRealTimeMonitoringData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetById)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(WearableDataServiceServer).GetRealTimeMonitoringData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: WearableDataService_GetRealTimeMonitoringData_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(WearableDataServiceServer).GetRealTimeMonitoringData(ctx, req.(*GetById))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // WearableDataService_ServiceDesc is the grpc.ServiceDesc for WearableDataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -255,6 +289,10 @@ var WearableDataService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "List",
 			Handler:    _WearableDataService_List_Handler,
+		},
+		{
+			MethodName: "GetRealTimeMonitoringData",
+			Handler:    _WearableDataService_GetRealTimeMonitoringData_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

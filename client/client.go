@@ -16,12 +16,13 @@ type Clients struct {
 	WearableData          pb.WearableDataServiceClient
 	LifeStyle             pb.LifestyleServiceClient
 	HealthRecommendations pb.RecommendationServiceClient
+	Notification          pb.NotificationServiceClient
 }
 
 func NewClients() *Clients {
 	cnf := config.Load()
 
-	conn, err := grpc.NewClient("localhost" + cnf.MED_TRACK, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.NewClient("localhost"+cnf.MED_TRACK, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		slog.Error("Failed to connect to live streaming service: %v", "err", err)
 	}
@@ -31,12 +32,14 @@ func NewClients() *Clients {
 	wearabledata := pb.NewWearableDataServiceClient(conn)
 	lifestyle := pb.NewLifestyleServiceClient(conn)
 	healthrecommendations := pb.NewRecommendationServiceClient(conn)
+	notification := pb.NewNotificationServiceClient(conn)
 
 	return &Clients{
-		MedicalRecords: medicalrecord,
+		MedicalRecords:        medicalrecord,
 		GeneticData:           geneticdata,
-        WearableData:          wearabledata,
-        LifeStyle:             lifestyle,
-        HealthRecommendations: healthrecommendations,
+		WearableData:          wearabledata,
+		LifeStyle:             lifestyle,
+		HealthRecommendations: healthrecommendations,
+		Notification:          notification,
 	}
 }

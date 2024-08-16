@@ -259,6 +259,135 @@ const docTemplate = `{
                 }
             }
         },
+        "/health-monitoring/daily-summary/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Health Monitoring Daily Report",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Health Monitoring"
+                ],
+                "summary": "Health Monitoring Daily Report",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/health_sync.LifestyleRes"
+                        }
+                    },
+                    "400": {
+                        "description": "error\": \"error message",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/health-monitoring/real-time/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Health Monitoring Real Time Report",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Health Monitoring"
+                ],
+                "summary": "Health Monitoring Real Time Report",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/health_sync.LifestyleRes"
+                        }
+                    },
+                    "400": {
+                        "description": "error\": \"error message",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/health-monitoring/weekly-summary/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Health Monitoring Weekly Report",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Health Monitoring"
+                ],
+                "summary": "Health Monitoring Weekly Report",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "user_id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/health_sync.WeeklySummary"
+                        }
+                    },
+                    "400": {
+                        "description": "error\": \"error message",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/lifestyle": {
             "get": {
                 "security": [
@@ -734,6 +863,146 @@ const docTemplate = `{
                         "description": "Record deleted successfully",
                         "schema": {
                             "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "error\": \"error message",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/notifications": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "List Notifications",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "List Notifications",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Receiver ID",
+                        "name": "receiver",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset",
+                        "name": "offset",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/health_sync.GetAllNotificationRes"
+                        }
+                    },
+                    "400": {
+                        "description": "error\": \"error message",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Create a new Notification",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Create a new Notification",
+                "parameters": [
+                    {
+                        "description": "body for Notification",
+                        "name": "notification",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/health_sync.Notification"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Notification created successfully",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "error\": \"error message",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/notifications/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "Get Notification by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Notifications"
+                ],
+                "summary": "Get Notification by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Notification ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/health_sync.Notification"
                         }
                     },
                     "400": {
@@ -1340,6 +1609,20 @@ const docTemplate = `{
                 }
             }
         },
+        "health_sync.GetAllNotificationRes": {
+            "type": "object",
+            "properties": {
+                "Notifications": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/health_sync.Notification"
+                    }
+                },
+                "count": {
+                    "type": "integer"
+                }
+            }
+        },
         "health_sync.GetAllRecommendationReq": {
             "type": "object",
             "properties": {
@@ -1395,7 +1678,7 @@ const docTemplate = `{
                 "sleep_duration": {
                     "type": "number"
                 },
-                "stress_level": {
+                "step_count": {
                     "type": "integer"
                 },
                 "temperature": {
@@ -1435,6 +1718,9 @@ const docTemplate = `{
                 },
                 "sleep_duration": {
                     "type": "number"
+                },
+                "step_count": {
+                    "type": "integer"
                 },
                 "stress_level": {
                     "type": "integer"
@@ -1548,6 +1834,23 @@ const docTemplate = `{
                 }
             }
         },
+        "health_sync.Notification": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "receiver": {
+                    "type": "string"
+                }
+            }
+        },
         "health_sync.RecommendationCreate": {
             "type": "object",
             "properties": {
@@ -1629,6 +1932,9 @@ const docTemplate = `{
                 "step_count": {
                     "type": "integer"
                 },
+                "temperature": {
+                    "type": "number"
+                },
                 "user_id": {
                     "type": "string"
                 },
@@ -1664,6 +1970,9 @@ const docTemplate = `{
                 "step_count": {
                     "type": "integer"
                 },
+                "temperature": {
+                    "type": "number"
+                },
                 "user_id": {
                     "type": "string"
                 },
@@ -1698,6 +2007,38 @@ const docTemplate = `{
                 },
                 "workout_type": {
                     "type": "string"
+                }
+            }
+        },
+        "health_sync.WeeklySummary": {
+            "type": "object",
+            "properties": {
+                "heart_rate": {
+                    "type": "integer"
+                },
+                "heart_rates": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "sleep_duration": {
+                    "type": "number"
+                },
+                "sleep_durations": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "temperature": {
+                    "type": "number"
+                },
+                "temperatures": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
                 }
             }
         }

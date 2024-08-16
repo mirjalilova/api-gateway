@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"context"
+	"encoding/json"
+	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -27,12 +29,26 @@ func (h *Handlers) CreateMedicalRecord(c *gin.Context) {
 		return
 	}
 
-	_, err := h.Clients.MedicalRecords.Create(context.Background(), &req)
+	input, err := json.Marshal(req)
 	if err != nil {
-		slog.Error("Failed to create Athlete: ", err)
-		c.JSON(500, gin.H{"error": err.Error()})
+		slog.Error("Failed to marshal JSON: ", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
 		return
 	}
+
+	err = h.Producer.ProduceMessages("cre-med", input)
+	if err != nil {
+		slog.Error("Failed to produce message: ", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
+		return
+	}
+	
+	// _, err := h.Clients.MedicalRecords.Create(context.Background(), &req)
+	// if err != nil {
+	// 	slog.Error("Failed to create Athlete: ", err)
+	// 	c.JSON(500, gin.H{"error": err.Error()})
+	// 	return
+	// }
 
 	slog.Info("Medical Record created: %+v", err)
 	c.JSON(200, gin.H{"message": "Record created successfully"})
@@ -68,12 +84,26 @@ func (h *Handlers) UpdateMedicalRecord(c *gin.Context) {
 		Attachments: body.Attachments,
 	}
 
-	_, err := h.Clients.MedicalRecords.Update(context.Background(), req)
+	input, err := json.Marshal(req)
 	if err != nil {
-		slog.Error("Failed to update Medical Record: ", err)
-		c.JSON(500, gin.H{"error": err.Error()})
+		slog.Error("Failed to marshal JSON: ", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
 		return
 	}
+
+	err = h.Producer.ProduceMessages("upd-med", input)
+	if err != nil {
+		slog.Error("Failed to produce message: ", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
+		return
+	}
+
+	// _, err := h.Clients.MedicalRecords.Update(context.Background(), req)
+	// if err != nil {
+	// 	slog.Error("Failed to update Medical Record: ", err)
+	// 	c.JSON(500, gin.H{"error": err.Error()})
+	// 	return
+	// }
 
 	slog.Info("Medical Record updated successfully")
 	c.JSON(200, gin.H{"message": "Record updated successfully"})

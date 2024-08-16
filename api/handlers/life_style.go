@@ -130,7 +130,7 @@ func (h *Handlers) GetLifestyle(c *gin.Context) {
 		return
 	}
 
-	slog.Info("Lifestyle retrieved: %+v", res)
+	slog.Info("Lifestyle retrieved")
 	c.JSON(200, res)
 }
 
@@ -193,6 +193,6 @@ func (h *Handlers) ListLifestyle(c *gin.Context) {
 		return
 	}
 
-	slog.Info("Lifestyle Records retrieved: %+v", res)
+	slog.Info("Lifestyle Records retrieved")
 	c.JSON(200, res)
 }

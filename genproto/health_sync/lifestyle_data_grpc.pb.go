@@ -19,11 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion8
 
 const (
-	LifestyleService_Create_FullMethodName = "/health_sync.LifestyleService/Create"
-	LifestyleService_Update_FullMethodName = "/health_sync.LifestyleService/Update"
-	LifestyleService_Delete_FullMethodName = "/health_sync.LifestyleService/Delete"
-	LifestyleService_Get_FullMethodName    = "/health_sync.LifestyleService/Get"
-	LifestyleService_List_FullMethodName   = "/health_sync.LifestyleService/List"
+	LifestyleService_Create_FullMethodName           = "/health_sync.LifestyleService/Create"
+	LifestyleService_Update_FullMethodName           = "/health_sync.LifestyleService/Update"
+	LifestyleService_Delete_FullMethodName           = "/health_sync.LifestyleService/Delete"
+	LifestyleService_Get_FullMethodName              = "/health_sync.LifestyleService/Get"
+	LifestyleService_List_FullMethodName             = "/health_sync.LifestyleService/List"
+	LifestyleService_GetWeeklySummary_FullMethodName = "/health_sync.LifestyleService/GetWeeklySummary"
 )
 
 // LifestyleServiceClient is the client API for LifestyleService service.
@@ -35,6 +36,7 @@ type LifestyleServiceClient interface {
 	Delete(ctx context.Context, in *GetById, opts ...grpc.CallOption) (*Void, error)
 	Get(ctx context.Context, in *GetById, opts ...grpc.CallOption) (*LifestyleRes, error)
 	List(ctx context.Context, in *GetAllLifestyleReq, opts ...grpc.CallOption) (*GetAllLifestyleRes, error)
+	GetWeeklySummary(ctx context.Context, in *WeeklySummaryReq, opts ...grpc.CallOption) (*WeeklySummary, error)
 }
 
 type lifestyleServiceClient struct {
@@ -95,6 +97,16 @@ func (c *lifestyleServiceClient) List(ctx context.Context, in *GetAllLifestyleRe
 	return out, nil
 }
 
+func (c *lifestyleServiceClient) GetWeeklySummary(ctx context.Context, in *WeeklySummaryReq, opts ...grpc.CallOption) (*WeeklySummary, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(WeeklySummary)
+	err := c.cc.Invoke(ctx, LifestyleService_GetWeeklySummary_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LifestyleServiceServer is the server API for LifestyleService service.
 // All implementations must embed UnimplementedLifestyleServiceServer
 // for forward compatibility
@@ -104,6 +116,7 @@ type LifestyleServiceServer interface {
 	Delete(context.Context, *GetById) (*Void, error)
 	Get(context.Context, *GetById) (*LifestyleRes, error)
 	List(context.Context, *GetAllLifestyleReq) (*GetAllLifestyleRes, error)
+	GetWeeklySummary(context.Context, *WeeklySummaryReq) (*WeeklySummary, error)
 	mustEmbedUnimplementedLifestyleServiceServer()
 }
 
@@ -125,6 +138,9 @@ func (UnimplementedLifestyleServiceServer) Get(context.Context, *GetById) (*Life
 }
 func (UnimplementedLifestyleServiceServer) List(context.Context, *GetAllLifestyleReq) (*GetAllLifestyleRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method List not implemented")
+}
+func (UnimplementedLifestyleServiceServer) GetWeeklySummary(context.Context, *WeeklySummaryReq) (*WeeklySummary, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetWeeklySummary not implemented")
 }
 func (UnimplementedLifestyleServiceServer) mustEmbedUnimplementedLifestyleServiceServer() {}
 
@@ -229,6 +245,24 @@ func _LifestyleService_List_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _LifestyleService_GetWeeklySummary_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WeeklySummaryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LifestyleServiceServer).GetWeeklySummary(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: LifestyleService_GetWeeklySummary_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LifestyleServiceServer).GetWeeklySummary(ctx, req.(*WeeklySummaryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // LifestyleService_ServiceDesc is the grpc.ServiceDesc for LifestyleService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -255,6 +289,10 @@ var LifestyleService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "List",
 			Handler:    _LifestyleService_List_Handler,
+		},
+		{
+			MethodName: "GetWeeklySummary",
+			Handler:    _LifestyleService_GetWeeklySummary_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

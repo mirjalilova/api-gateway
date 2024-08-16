@@ -76,5 +76,19 @@ func Engine(handler *handlers.Handlers) *gin.Engine {
 		recommendation.DELETE("/:id", handler.DeleteRecommendation)
 	}
 
+	monitoring := router.Group("/health-monitoring")
+	{
+		monitoring.GET("/real-time/:id", handler.HealthMonitoringRealTime)
+		monitoring.GET("/daily-summary/:id", handler.HealthMonitoringDailyReport)
+		monitoring.GET("/weekly-summary/:id", handler.HealthMonitoringWeeklyReport)
+	}
+
+	notification := router.Group("/notifications")
+	{
+        notification.POST("", handler.CreateNotification)
+		notification.GET("/:id", handler.GetNotification)
+		notification.GET("/", handler.ListNotifications)
+    }
+
 	return router
 }
