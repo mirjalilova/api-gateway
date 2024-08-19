@@ -1,4 +1,4 @@
-name: Medical Monitoring
+name: Medical MOnitoring
 
 on:
   push:
@@ -29,3 +29,4 @@ jobs:
           sudo docker compose down
           sudo docker compose up -d
           sudo docker compose up -d
+          
