@@ -13,7 +13,7 @@ import (
 func Run(cfg *config.Config) {
 
 	// Kafka
-	brokers := []string{"kafka:29092"}
+	brokers := []string{"kafka_medtrack:29092"}
 	pr, err := prd.NewKafkaProducer(brokers)
 	if err != nil {
 		slog.Error("Failed to create Kafka producer:", err)

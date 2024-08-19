@@ -2,7 +2,6 @@ package kafka
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/segmentio/kafka-go"
 )
@@ -21,7 +20,6 @@ func NewKafkaProducer(brokers []string) (KafkaProducer, error) {
 		Addr:                   kafka.TCP(brokers...),
 		AllowAutoTopicCreation: true,
 	}
-	fmt.Println("lll")
 	return &Producer{writer: writer}, nil
 }
 
